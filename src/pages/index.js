@@ -1,45 +1,58 @@
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from 'react';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-
-import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
 import styles from './index.module.css';
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
-      <main style={{ padding: 40 }}>
-      <h1>My KB</h1>
-      <p>Technical Documentation</p>
-      <a href="/docs/intro">Enter Docs</a>
-    </main>
+      title="Knowledge Base"
+      description="Technical documentation and support center">
+
+      <main className={styles.main}>
+
+        {/* HERO */}
+        <section className={styles.hero}>
+          <h1>How can we help you?</h1>
+          <p>Search documentation, guides, and API references</p>
+
+          <div className={styles.searchBox}>
+            <input placeholder="Search articles..." />
+          </div>
+
+          <div className={styles.quickLinks}>
+            <Link to="/docs/intro">Getting Started</Link>
+            <Link to="/docs/api">API</Link>
+            <Link to="/docs/troubleshooting">Help</Link>
+          </div>
+        </section>
+
+        {/* CARDS */}
+        <section className={styles.grid}>
+
+          <Link className={styles.card} to="/docs/intro">
+            <h3>Getting Started</h3>
+            <p>Setup and basics</p>
+          </Link>
+
+          <Link className={styles.card} to="/docs/api">
+            <h3>API Reference</h3>
+            <p>Endpoints and authentication</p>
+          </Link>
+
+          <Link className={styles.card} to="/docs/guides">
+            <h3>Guides</h3>
+            <p>Step-by-step tutorials</p>
+          </Link>
+
+          <Link className={styles.card} to="/docs/troubleshooting">
+            <h3>Troubleshooting</h3>
+            <p>Common issues and fixes</p>
+          </Link>
+
+        </section>
+
+      </main>
     </Layout>
   );
 }
