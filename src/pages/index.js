@@ -35,9 +35,11 @@ export default function Home() {
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
-      <main>
-        <HomepageFeatures />
-      </main>
+      <main style={{ padding: 40 }}>
+      <h1>My KB</h1>
+      <p>Technical Documentation</p>
+      <a href="/docs/intro">Enter Docs</a>
+    </main>
     </Layout>
   );
 }
