@@ -10,7 +10,7 @@ There are several common types of electric locks used in access control systems:
 
 Figure 1-1 dddd
 
-<img src="/img/lock.png" />
+<img src="/my-kb/img/lock.png" />
 
 | Lock Type            | Fail Mode               | Typical Scenarios             |
 | -------------------- | ----------------------- | ----------------------------- |
