@@ -31,3 +31,21 @@
 body {
   background-color: #fafafa;
 }
+
+:root {
+  --ifm-color-primary: #1f4b99;
+  --ifm-color-primary-dark: #1a4083;
+  --ifm-color-primary-light: #2a5fc2;
+}
+
+body {
+  background-color: #f7f8fa;
+}
+
+:root {
+  --ifm-color-primary: #1f4b99;
+}
+
+body {
+  background-color: #f5f7fb;
+}
