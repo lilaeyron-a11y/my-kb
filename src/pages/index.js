@@ -212,7 +212,7 @@ function GettingStartedSection() {
     {
       step: '03',
       title: 'Configure Auto Provisioning',
-      desc: 'Use Fanvil's FDPS (Free Device Provisioning Server) to deploy configuration files to multiple devices at once — zero-touch provisioning.',
+      desc: 'Use Fanvil\'s FDPS (Free Device Provisioning Server) to deploy configuration files to multiple devices at once — zero-touch provisioning.',
       link: '/docs/getting-started/auto-provisioning',
     },
     {
