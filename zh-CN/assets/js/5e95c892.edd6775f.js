@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunknexora_iot_docs=globalThis.webpackChunknexora_iot_docs||[]).push([[9647],{7121(e,s,r){r.r(s),r.d(s,{default:()=>i});r(6540);var a=r(4164),o=r(7559),c=r(5500),n=r(2831),t=r(6250),u=r(4848);function i(e){return(0,u.jsx)(c.e3,{className:(0,a.A)(o.G.wrapper.docsPages),children:(0,u.jsx)(t.A,{children:(0,n.v)(e.route.routes)})})}}}]);

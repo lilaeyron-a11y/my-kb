@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_kb=self.webpackChunkmy_kb||[]).push([["3220"],{1912(s){s.exports=JSON.parse('{"blogBasePath":"/my-kb/blog","blogTitle":"Blog","authorsListPath":"/my-kb/blog/authors"}')}}]);
