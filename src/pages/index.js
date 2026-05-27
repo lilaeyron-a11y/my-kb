@@ -1,384 +1,149 @@
-import React, { useEffect, useRef } from 'react';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from 'react';
 import Layout from '@theme/Layout';
-import styles from './index.module.css';
+import Link from '@docusaurus/Link';
 
-/* ── Data ─────────────────────────────────────────────────── */
-const PRODUCT_CATEGORIES = [
+const PRODUCTS = [
   {
-    icon: '🖥️',
-    title: 'X Series IP Phones',
-    desc: 'Enterprise & call center phones with up to 20 SIP lines, touch screen, HD audio, and Gigabit Ethernet.',
-    link: '/docs/ip-phones/x-series/overview',
-    badge: 'Popular',
-    badgeType: 'hot',
+    id: 'headphones',
+    name: 'Headphones',
+    line: 'AH Series',
+    desc: 'Over-ear wireless headphones with active noise cancellation.',
+    models: ['AH-1','AH-2','AH-3','AH-4','AH-5'],
+    href: '/docs/products/headphones/overview',
+    color: '#F5F5F7',
   },
   {
-    icon: '💼',
-    title: 'V Series Business Phones',
-    desc: 'Prime business IP phones featuring HD video calling, color displays, and elegant industrial design.',
-    link: '/docs/ip-phones/v-series/overview',
-    badge: 'New',
-    badgeType: 'new',
+    id: 'mouse',
+    name: 'Mouse',
+    line: 'AM Series',
+    desc: 'Precision wireless mice engineered for all-day comfort.',
+    models: ['AM-1','AM-2','AM-3','AM-4','AM-5'],
+    href: '/docs/products/mouse/overview',
+    color: '#F5F5F7',
   },
   {
-    icon: '🏨',
-    title: 'H Series Hotel Phones',
-    desc: 'Hospitality-grade IP phones with Wi-Fi, HD audio, and seamless PMS integration for hotels.',
-    link: '/docs/ip-phones/h-series/overview',
-  },
-  {
-    icon: '⚡',
-    title: 'XU Series High-End Phones',
-    desc: 'Three-screen high-end IP phones with built-in Bluetooth, DSS keys, and wideband audio.',
-    link: '/docs/ip-phones/xu-series/overview',
-  },
-  {
-    icon: '📱',
-    title: 'A Series Android Phones',
-    desc: 'Android-based touch screen IP phones with app ecosystem and full enterprise UC capabilities.',
-    link: '/docs/ip-phones/a-series/overview',
-  },
-  {
-    icon: '🚪',
-    title: 'Door Phones & Intercoms',
-    desc: 'SIP video door phones, indoor stations, and audio/video intercom systems for secure entry.',
-    link: '/docs/security-products/door-phones',
-  },
-  {
-    icon: '📡',
-    title: 'SIP Speakers & Paging',
-    desc: 'Network paging speakers, nurse call consoles, and audio broadcast systems for public spaces.',
-    link: '/docs/security-products/sip-speakers',
-  },
-  {
-    icon: '🔌',
-    title: '2-Wire Products',
-    desc: 'Cost-efficient 2-wire IP phones, converters, and PoE switches for legacy infrastructure.',
-    link: '/docs/getting-started/quick-start',
+    id: 'keyboard',
+    name: 'Keyboard',
+    line: 'AK Series',
+    desc: 'Compact mechanical keyboards with customizable layouts.',
+    models: ['AK-1','AK-2','AK-3','AK-4','AK-5'],
+    href: '/docs/products/keyboard/overview',
+    color: '#F5F5F7',
   },
 ];
 
-const SOLUTIONS = [
-  {
-    icon: '🏢',
-    title: 'Enterprise Solution',
-    desc: 'Unified communication systems for modern enterprise environments with PBX integration.',
-    link: 'https://fanvil.com/solution/ApartmentSolution.html',
-  },
-  {
-    icon: '🏥',
-    title: 'Medical / Healthcare',
-    desc: 'Nurse call systems and medical-grade communication for hospitals and care facilities.',
-    link: 'https://fanvil.com/solution/MedicalSolution.html',
-  },
-  {
-    icon: '🎓',
-    title: 'Education Solution',
-    desc: 'Smart campus communication for schools and universities to accelerate digital transformation.',
-    link: 'https://fanvil.com/solution/Educational.html',
-  },
-  {
-    icon: '🛏️',
-    title: 'Hotel & Hospitality',
-    desc: 'Smart hospitality communication with PMS integration and guest experience features.',
-    link: 'https://fanvil.com/solution/Hotel.html',
-  },
-  {
-    icon: '🏭',
-    title: 'Industrial Solution',
-    desc: 'Rugged VoIP for industrial environments including warehousing, logistics, and retail.',
-    link: 'https://fanvil.com/solution/IndustrialSolution.html',
-  },
-  {
-    icon: '☁️',
-    title: 'Cloud Communication',
-    desc: 'SIP-based cloud telephony solutions compatible with major hosted UCaaS providers.',
-    link: 'https://fanvil.com/solution/CloudSolution.html',
-  },
+const TOPICS = [
+  { label: 'Getting Started',  desc: 'Setup guides and first-use instructions.',         href: '/docs/getting-started/intro' },
+  { label: 'Tutorials',        desc: 'Step-by-step walkthroughs for common tasks.',       href: '/docs/learn/tutorials/pairing-headphones' },
+  { label: 'How-to Guides',    desc: 'Task-focused instructions for specific workflows.', href: '/docs/learn/how-to/update-firmware' },
+  { label: 'API Reference',    desc: 'Full REST API documentation and schemas.',          href: '/docs/api/overview' },
+  { label: 'Troubleshooting',  desc: 'Diagnose and resolve common issues.',               href: '/docs/support/troubleshooting/headphones' },
+  { label: 'FAQ',              desc: 'Answers to frequently asked questions.',            href: '/docs/support/faq' },
 ];
 
-const QUICK_LINKS = [
-  { label: '📥 Firmware Downloads', href: 'https://fanvil.com/service/doc/index.html' },
-  { label: '🔧 Quick Start Guide', href: '/docs/getting-started/quick-start' },
-  { label: '⚙️ Auto Provisioning', href: '/docs/getting-started/auto-provisioning' },
-  { label: '📋 3CX Integration', href: '/docs/integrations/3cx' },
-  { label: '🔍 FAQ', href: '/docs/faq/general' },
-  { label: '📞 Contact Support', href: 'https://fanvil.com/contactus/index.html' },
-];
-
-const INTEGRATIONS = [
-  { label: '3CX', color: '#003153' },
-  { label: 'Microsoft Teams', color: '#5059C9' },
-  { label: 'Zoom', color: '#2D8CFF' },
-  { label: 'PortSIP', color: '#00875A' },
-  { label: 'BroadSoft', color: '#E62B1E' },
-  { label: 'Asterisk', color: '#F96B13' },
-  { label: 'FreePBX', color: '#FC0' },
-  { label: 'NetSapiens', color: '#00448A' },
-];
-
-/* ── Components ───────────────────────────────────────────── */
-function HeroSection() {
-  return (
-    <section className="fv-hero">
-      <p className="fv-hero__eyebrow">Fanvil Link Technology — Official Support</p>
-      <h1 className="fv-hero__title">
-        Fanvil <span>Knowledge Base</span>
-      </h1>
-      <p className="fv-hero__subtitle">
-        Guides, manuals, integration docs, firmware changelogs, and FAQs for all Fanvil A&amp;V-IoT devices.
-      </p>
-
-      <div className="fv-quicklinks">
-        {QUICK_LINKS.map((ql) => (
-          <Link key={ql.label} className="fv-quicklink" to={ql.href}>
-            {ql.label}
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
+// SVG product illustrations — minimal line art placeholder
+function ProductIllustration({ type }) {
+  const illustrations = {
+    headphones: (
+      <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:'100%',height:'100%'}}>
+        <ellipse cx="80" cy="68" rx="38" ry="32" stroke="#1D1D1F" strokeWidth="2.5" fill="none"/>
+        <path d="M42 68 C42 44 118 44 118 68" stroke="#1D1D1F" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+        <rect x="34" y="60" width="12" height="22" rx="6" stroke="#1D1D1F" strokeWidth="2" fill="#F5F5F7"/>
+        <rect x="114" y="60" width="12" height="22" rx="6" stroke="#1D1D1F" strokeWidth="2" fill="#F5F5F7"/>
+      </svg>
+    ),
+    mouse: (
+      <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:'100%',height:'100%'}}>
+        <path d="M60 75 C60 48 100 48 100 75 L96 95 C96 102 64 102 64 95 Z" stroke="#1D1D1F" strokeWidth="2.5" fill="#F5F5F7"/>
+        <line x1="80" y1="48" x2="80" y2="75" stroke="#1D1D1F" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="80" cy="67" r="4" stroke="#1D1D1F" strokeWidth="1.5" fill="none"/>
+      </svg>
+    ),
+    keyboard: (
+      <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:'100%',height:'100%'}}>
+        <rect x="24" y="44" width="112" height="52" rx="6" stroke="#1D1D1F" strokeWidth="2.5" fill="#F5F5F7"/>
+        {[0,1,2,3,4,5].map(i => [0,1,2].map(j => (
+          <rect key={`${i}-${j}`} x={32 + i*17} y={52 + j*14} width="11" height="9" rx="2" stroke="#1D1D1F" strokeWidth="1.2" fill="white"/>
+        )))}
+        <rect x="60" y="80" width="40" height="9" rx="2" stroke="#1D1D1F" strokeWidth="1.2" fill="white"/>
+      </svg>
+    ),
+  };
+  return illustrations[type] || null;
 }
 
-function StatsBar() {
-  return (
-    <div className="fv-stats">
-      {[
-        { num: '200+', label: 'Product Models' },
-        { num: '50+', label: 'Countries' },
-        { num: '3', label: 'R&D Centers' },
-        { num: '15+', label: 'Years Experience' },
-      ].map((s) => (
-        <div key={s.label} className="fv-stat">
-          <span className="fv-stat__num">{s.num}</span>
-          <span className="fv-stat__label">{s.label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function ProductCard({ icon, title, desc, link, badge, badgeType }) {
-  return (
-    <Link className="fv-card" to={link}>
-      <div className="fv-card__icon">{icon}</div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-        <p className="fv-card__title" style={{ margin: 0 }}>{title}</p>
-        {badge && (
-          <span className={`fv-badge fv-badge--${badgeType || 'updated'}`}>{badge}</span>
-        )}
-      </div>
-      <p className="fv-card__desc">{desc}</p>
-      <span className="fv-card__arrow">View docs →</span>
-    </Link>
-  );
-}
-
-function ProductSection() {
-  return (
-    <section className="fv-section">
-      <div className="fv-section__header">
-        <p className="fv-section__label">Product Documentation</p>
-        <h2 className="fv-section__title">Browse by Product Category</h2>
-        <p className="fv-section__desc">
-          Find setup guides, user manuals, and technical specs for every Fanvil product line.
-        </p>
-      </div>
-      <div className="fv-grid fv-grid--4">
-        {PRODUCT_CATEGORIES.map((p) => (
-          <ProductCard key={p.title} {...p} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function GettingStartedSection() {
-  const steps = [
-    {
-      step: '01',
-      title: 'Unbox & Connect',
-      desc: 'Connect your Fanvil device to the network via Ethernet (PoE) or power adapter. The phone will boot and display its IP address.',
-      link: '/docs/getting-started/quick-start',
-    },
-    {
-      step: '02',
-      title: 'Register a SIP Account',
-      desc: 'Open the web interface, navigate to Account → SIP Account, and enter your SIP server credentials from your PBX or hosted provider.',
-      link: '/docs/getting-started/sip-registration',
-    },
-    {
-      step: '03',
-      title: 'Configure Auto Provisioning',
-      desc: 'Use Fanvil\'s FDPS (Free Device Provisioning Server) to deploy configuration files to multiple devices at once — zero-touch provisioning.',
-      link: '/docs/getting-started/auto-provisioning',
-    },
-    {
-      step: '04',
-      title: 'Integrate with Your PBX',
-      desc: 'Follow our integration guides for 3CX, Microsoft Teams, Zoom, PortSIP, BroadSoft, and more.',
-      link: '/docs/integrations/3cx',
-    },
-  ];
-
-  return (
-    <section className="fv-section fv-section--gray">
-      <div className="fv-section__header">
-        <p className="fv-section__label">Start Here</p>
-        <h2 className="fv-section__title">Getting Started in 4 Steps</h2>
-        <p className="fv-section__desc">
-          New to Fanvil? Follow these steps to get your device up and running in minutes.
-        </p>
-      </div>
-      <div className="fv-grid fv-grid--2" style={{ maxWidth: 960, margin: '0 auto' }}>
-        {steps.map((s) => (
-          <Link key={s.step} className="fv-card fv-card--accent" to={s.link}>
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-              <span style={{
-                fontSize: '2rem', fontWeight: 800, color: 'rgba(0,47,108,0.12)',
-                lineHeight: 1, minWidth: 48,
-              }}>{s.step}</span>
-              <div>
-                <p className="fv-card__title">{s.title}</p>
-                <p className="fv-card__desc">{s.desc}</p>
-                <span className="fv-card__arrow">Read guide →</span>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function SolutionsSection() {
-  return (
-    <section className="fv-section">
-      <div className="fv-section__header">
-        <p className="fv-section__label">Industry Solutions</p>
-        <h2 className="fv-section__title">Solutions for Every Industry</h2>
-        <p className="fv-section__desc">
-          Fanvil offers tailored A&amp;V-IoT solutions for diverse enterprise and institutional environments.
-        </p>
-      </div>
-      <div className="fv-grid fv-grid--3">
-        {SOLUTIONS.map((s) => (
-          <Link key={s.title} className="fv-card" to={s.link}>
-            <div className="fv-card__icon">{s.icon}</div>
-            <p className="fv-card__title">{s.title}</p>
-            <p className="fv-card__desc">{s.desc}</p>
-            <span className="fv-card__arrow">Learn more →</span>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function IntegrationsSection() {
-  return (
-    <section className="fv-section fv-section--gray">
-      <div className="fv-section__header">
-        <p className="fv-section__label">Compatibility</p>
-        <h2 className="fv-section__title">Works with Your Platform</h2>
-        <p className="fv-section__desc">
-          Fanvil devices are compatible with all major SIP PBX and UCaaS platforms out of the box.
-        </p>
-      </div>
-      <div style={{
-        display: 'flex', flexWrap: 'wrap', gap: '0.75rem',
-        justifyContent: 'center', maxWidth: 700, margin: '0 auto 2rem',
-      }}>
-        {INTEGRATIONS.map((i) => (
-          <span key={i.label} style={{
-            background: '#fff', border: '1px solid #E9ECEF',
-            borderRadius: 8, padding: '0.5rem 1.25rem',
-            fontWeight: 600, fontSize: '0.9rem', color: i.color,
-            boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-          }}>{i.label}</span>
-        ))}
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <Link className="fv-card__arrow" to="/docs/integrations/3cx" style={{ fontSize: '0.95rem' }}>
-          View all integration guides →
-        </Link>
-      </div>
-    </section>
-  );
-}
-
-function SupportSection() {
-  const tiles = [
-    {
-      icon: '📥',
-      title: 'Download Center',
-      desc: 'Firmware files, user manuals, admin guides, datasheets, and configuration templates.',
-      link: 'https://fanvil.com/service/doc/index.html',
-      ext: true,
-    },
-    {
-      icon: '💬',
-      title: 'Submit a Ticket',
-      desc: 'Open a support ticket for technical issues, RMA requests, or pre-sales questions.',
-      link: 'https://fanvil.com/service/help/index.html',
-      ext: true,
-    },
-    {
-      icon: '🔒',
-      title: 'Security Center',
-      desc: 'Security advisories, CVE reports, and vulnerability disclosures for Fanvil products.',
-      link: 'https://fanvil.com/service/security/index.html',
-      ext: true,
-    },
-    {
-      icon: '🎓',
-      title: 'Training & Certification',
-      desc: 'Fanvil Academy courses for resellers, integrators, and IT professionals.',
-      link: 'https://fanvil.com/partners/college.html',
-      ext: true,
-    },
-  ];
-
-  return (
-    <section className="fv-section">
-      <div className="fv-section__header">
-        <p className="fv-section__label">Support Resources</p>
-        <h2 className="fv-section__title">More Ways to Get Help</h2>
-      </div>
-      <div className="fv-grid fv-grid--4">
-        {tiles.map((t) => (
-          <a key={t.title} className="fv-card" href={t.link}
-            target={t.ext ? '_blank' : undefined}
-            rel={t.ext ? 'noopener noreferrer' : undefined}
-          >
-            <div className="fv-card__icon">{t.icon}</div>
-            <p className="fv-card__title">{t.title}</p>
-            <p className="fv-card__desc">{t.desc}</p>
-            <span className="fv-card__arrow">{t.ext ? 'Visit ↗' : 'Read →'}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ── Page ──────────────────────────────────────────────────── */
 export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title="Fanvil Knowledge Base | Official Support Center"
-      description="Official Fanvil knowledge base — setup guides, user manuals, firmware changelogs, integration docs for X Series, V Series, H Series IP phones and security products."
-    >
-      <HeroSection />
-      <StatsBar />
-      <ProductSection />
-      <GettingStartedSection />
-      <SolutionsSection />
-      <IntegrationsSection />
-      <SupportSection />
+    <Layout title="Aeyron Technology — Documentation" description="Official knowledge base for Aeyron products.">
+
+      {/* Hero */}
+      <header className="ax-hero">
+        <div className="ax-container">
+          <p className="ax-eyebrow">Aeyron Technology · Support &amp; Documentation</p>
+          <h1 className="ax-hero-title">How can we help you?</h1>
+          <p className="ax-hero-sub">
+            Find guides, manuals, API references, and support resources
+            for all Aeyron products.
+          </p>
+          <div className="ax-hero-actions">
+            <Link className="ax-btn ax-btn-primary" to="/docs/getting-started/intro">Get started</Link>
+            <Link className="ax-btn ax-btn-ghost" to="/docs/support/faq">Browse FAQ</Link>
+          </div>
+        </div>
+      </header>
+
+      <main>
+
+        {/* Products */}
+        <section className="ax-section">
+          <div className="ax-container">
+            <h2 className="ax-section-title">Products</h2>
+            <div className="ax-product-grid">
+              {PRODUCTS.map(p => (
+                <div key={p.id} className="ax-product-card">
+                  <div className="ax-product-illustration">
+                    <ProductIllustration type={p.id} />
+                  </div>
+                  <div className="ax-product-info">
+                    <span className="ax-product-line">{p.line}</span>
+                    <h3 className="ax-product-name">{p.name}</h3>
+                    <p className="ax-product-desc">{p.desc}</p>
+                    <div className="ax-model-list">
+                      {p.models.map(m => (
+                        <Link
+                          key={m}
+                          className="ax-model-chip"
+                          to={`/docs/products/${p.id}/${m}/user-manual`}
+                        >{m}</Link>
+                      ))}
+                    </div>
+                    <Link className="ax-product-link" to={p.href}>
+                      View all documentation →
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Topics */}
+        <section className="ax-section ax-section-alt">
+          <div className="ax-container">
+            <h2 className="ax-section-title">Documentation</h2>
+            <div className="ax-topic-grid">
+              {TOPICS.map(t => (
+                <Link key={t.label} className="ax-topic-card" to={t.href}>
+                  <span className="ax-topic-title">{t.label}</span>
+                  <span className="ax-topic-desc">{t.desc}</span>
+                  <span className="ax-topic-arrow">→</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      </main>
     </Layout>
   );
 }
