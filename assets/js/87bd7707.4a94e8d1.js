@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunknexora_iot_docs=globalThis.webpackChunknexora_iot_docs||[]).push([[1931],{4578(a){a.exports=JSON.parse('{"tags":[{"label":"headphones","permalink":"/my-kb/docs/tags/headphones","count":1},{"label":"AH-1","permalink":"/my-kb/docs/tags/ah-1","count":1},{"label":"user-manual","permalink":"/my-kb/docs/tags/user-manual","count":1}]}')}}]);
