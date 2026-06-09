@@ -3,13 +3,13 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Nexora IoT Docs',
-  tagline: 'Knowledge Base · Developer Docs · API Reference',
+  title: 'Aeyron Docs Portfolio',
+  tagline: 'Technical Writing · Documentation Architecture · Docs-as-Code',
   favicon: 'img/favicon.ico',
-  url: 'https://docs.nexora-iot.com',
-  baseUrl: '/',
-  organizationName: 'nexora-iot',
-  projectName: 'nexora-docs',
+  url: 'https://lilaeyron-a11y.github.io',
+  baseUrl: '/my-kb/',
+  organizationName: 'lilaeyron-a11y',
+  projectName: 'my-kb',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
@@ -25,85 +25,77 @@ const config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: '',
+      title: 'Aeyron',
       logo: {
-        alt: 'Aeyron Technology',
+        alt: 'Aeyron',
         src: 'img/logo.svg',
-        srcDark: 'img/logo-dark.svg',
-        width: 200,
-        height: 200,
+        srcDark: 'img/logo-dark',
       },
       items: [
         {
-    type: 'docSidebar',
-    sidebarId: 'gettingStartedSidebar',
-    position: 'left',
-    label: 'Getting Started',
-  },
-  {
-    type: 'docSidebar',
-    sidebarId: 'productsSidebar',
-    position: 'left',
-    label: 'Products',
-  },
-  {
-    type: 'docSidebar',
-    sidebarId: 'learnSidebar',
-    position: 'left',
-    label: 'Learn',
-  },
-  {
-    type: 'docSidebar',
-    sidebarId: 'supportSidebar',
-    position: 'left',
-    label: 'Support',
-  },
-  {
-    type: 'docSidebar',
-    sidebarId: 'apiSidebar',
-    position: 'left',
-    label: 'API',
-  },
-  {
-    type: 'localeDropdown',
-    position: 'right',
-  },
-  {
-    href: 'https://github.com/aeyron-tech',
-    label: 'GitHub',
-    position: 'right',
-  },
+          type: 'docSidebar',
+          sidebarId: 'portfolioSidebar',
+          position: 'left',
+          label: 'Portfolio',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'knowledgeSidebar',
+          position: 'left',
+          label: 'Knowledge Base',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'learningSidebar',
+          position: 'left',
+          label: 'Roadmap',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'docsLabSidebar',
+          position: 'left',
+          label: 'Docs Lab',
+        },
+        {
+          type: 'localeDropdown',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/lilaeyron-a11y/my-kb',
+          label: 'GitHub',
+          position: 'right',
+        },
       ],
     },
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Documentation',
+          title: 'Portfolio',
           items: [
-            { label: 'Getting Started', to: '/docs/getting-started/intro' },
-            { label: 'API Reference', to: '/docs/api/overview' },
-            { label: 'Release Notes', to: '/docs/release-notes/latest' },
+            { label: 'Overview', to: '/docs/portfolio/intro' },
+            { label: 'Documentation Case Study', to: '/docs/portfolio/documentation-system-case-study' },
+            { label: 'API Docs Sample', to: '/docs/portfolio/api-docs-sample' },
           ],
         },
         {
-          title: 'Products',
+          title: 'Knowledge Base',
           items: [
-            { label: 'Smart Gateway', to: '/docs/products/smart-gateway/overview' },
-            { label: 'Door Phone', to: '/docs/products/door-phone/overview' },
-            { label: 'Indoor Station', to: '/docs/products/indoor-station/overview' },
+            { label: 'Technical Writing', to: '/docs/knowledge/technical-writing' },
+            { label: 'Diataxis', to: '/docs/knowledge/diataxis' },
+            { label: 'Docs-as-Code', to: '/docs/knowledge/docs-as-code' },
           ],
         },
         {
-          title: 'Company',
+          title: 'Career',
           items: [
-            { label: 'About Nexora', href: 'https://nexora-iot.com/about' },
-            { label: 'Support', href: 'https://nexora-iot.com/support' },
-            { label: 'Contact', href: 'mailto:support@nexora-iot.com' },
+            { label: 'Learning Roadmap', to: '/docs/learning-roadmap/overview' },
+            { label: 'Skills Stack', to: '/docs/learning-roadmap/skills-stack' },
+            { label: 'GitHub', href: 'https://github.com/lilaeyron-a11y/my-kb' },
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Nexora IoT Technology Co., Ltd. Documentation maintained by Aeyron.`,
+      copyright: `Copyright ${new Date().getFullYear()} Aeyron. Built with Docusaurus as a technical writing portfolio and knowledge base.`,
     },
     prism: {
       theme: prismThemes.github,
@@ -129,7 +121,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/nexora-iot/nexora-docs/tree/main/',
+          editUrl: 'https://github.com/lilaeyron-a11y/my-kb/tree/main/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
           breadcrumbs: true,

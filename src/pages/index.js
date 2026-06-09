@@ -2,147 +2,146 @@ import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 
-const PRODUCTS = [
+const strengths = [
   {
-    id: 'headphones',
-    name: 'Headphones',
-    line: 'AH Series',
-    desc: 'Over-ear wireless headphones with active noise cancellation.',
-    models: ['AH-1','AH-2','AH-3','AH-4','AH-5'],
-    href: '/docs/products/headphones/overview',
-    color: '#F5F5F7',
+    title: 'Documentation architecture',
+    description:
+      'Designing knowledge bases with clear entry points, reusable content patterns, and Diataxis-informed structures.',
+    href: '/docs/portfolio/documentation-system-case-study',
   },
   {
-    id: 'mouse',
-    name: 'Mouse',
-    line: 'AM Series',
-    desc: 'Precision wireless mice engineered for all-day comfort.',
-    models: ['AM-1','AM-2','AM-3','AM-4','AM-5'],
-    href: '/docs/products/mouse/overview',
-    color: '#F5F5F7',
+    title: 'Docs-as-code workflow',
+    description:
+      'Learning and applying Git, Docusaurus, Markdown, API docs, CI/CD, and publishing pipelines for modern documentation teams.',
+    href: '/docs/knowledge/docs-as-code',
   },
   {
-    id: 'keyboard',
-    name: 'Keyboard',
-    line: 'AK Series',
-    desc: 'Compact mechanical keyboards with customizable layouts.',
-    models: ['AK-1','AK-2','AK-3','AK-4','AK-5'],
-    href: '/docs/products/keyboard/overview',
-    color: '#F5F5F7',
+    title: 'Technical communication growth',
+    description:
+      'Building a public learning record across technical writing, content strategy, UX writing, and AI-assisted documentation.',
+    href: '/docs/learning-roadmap/overview',
   },
 ];
 
-const TOPICS = [
-  { label: 'Getting Started',  desc: 'Setup guides and first-use instructions.',         href: '/docs/getting-started/intro' },
-  { label: 'Tutorials',        desc: 'Step-by-step walkthroughs for common tasks.',       href: '/docs/learn/tutorials/pairing-headphones' },
-  { label: 'How-to Guides',    desc: 'Task-focused instructions for specific workflows.', href: '/docs/learn/how-to/update-firmware' },
-  { label: 'API Reference',    desc: 'Full REST API documentation and schemas.',          href: '/docs/api/overview' },
-  { label: 'Troubleshooting',  desc: 'Diagnose and resolve common issues.',               href: '/docs/support/troubleshooting/headphones' },
-  { label: 'FAQ',              desc: 'Answers to frequently asked questions.',            href: '/docs/support/faq' },
+const highlights = [
+  {
+    label: 'Portfolio',
+    title: 'Documentation system case study',
+    text: 'A fictional corporate knowledge base used to demonstrate product documentation, support flows, API reference, and localization thinking.',
+    href: '/docs/portfolio/documentation-system-case-study',
+  },
+  {
+    label: 'Knowledge base',
+    title: 'Technical writing notes',
+    text: 'Working notes on Diataxis, DITA, Markdown, API documentation, docs-as-code, and the wider technical communication field.',
+    href: '/docs/knowledge/technical-writing',
+  },
+  {
+    label: 'Career roadmap',
+    title: 'From learner to strategist',
+    text: 'A transparent roadmap for becoming a technical writer, documentation engineer, content strategist, and AI documentation consultant.',
+    href: '/docs/learning-roadmap/career-notes',
+  },
 ];
-
-// SVG product illustrations — minimal line art placeholder
-function ProductIllustration({ type }) {
-  const illustrations = {
-    headphones: (
-      <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:'100%',height:'100%'}}>
-        <ellipse cx="80" cy="68" rx="38" ry="32" stroke="#1D1D1F" strokeWidth="2.5" fill="none"/>
-        <path d="M42 68 C42 44 118 44 118 68" stroke="#1D1D1F" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        <rect x="34" y="60" width="12" height="22" rx="6" stroke="#1D1D1F" strokeWidth="2" fill="#F5F5F7"/>
-        <rect x="114" y="60" width="12" height="22" rx="6" stroke="#1D1D1F" strokeWidth="2" fill="#F5F5F7"/>
-      </svg>
-    ),
-    mouse: (
-      <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:'100%',height:'100%'}}>
-        <path d="M60 75 C60 48 100 48 100 75 L96 95 C96 102 64 102 64 95 Z" stroke="#1D1D1F" strokeWidth="2.5" fill="#F5F5F7"/>
-        <line x1="80" y1="48" x2="80" y2="75" stroke="#1D1D1F" strokeWidth="2" strokeLinecap="round"/>
-        <circle cx="80" cy="67" r="4" stroke="#1D1D1F" strokeWidth="1.5" fill="none"/>
-      </svg>
-    ),
-    keyboard: (
-      <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" style={{width:'100%',height:'100%'}}>
-        <rect x="24" y="44" width="112" height="52" rx="6" stroke="#1D1D1F" strokeWidth="2.5" fill="#F5F5F7"/>
-        {[0,1,2,3,4,5].map(i => [0,1,2].map(j => (
-          <rect key={`${i}-${j}`} x={32 + i*17} y={52 + j*14} width="11" height="9" rx="2" stroke="#1D1D1F" strokeWidth="1.2" fill="white"/>
-        )))}
-        <rect x="60" y="80" width="40" height="9" rx="2" stroke="#1D1D1F" strokeWidth="1.2" fill="white"/>
-      </svg>
-    ),
-  };
-  return illustrations[type] || null;
-}
 
 export default function Home() {
   return (
-    <Layout title="Aeyron Technology — Documentation" description="Official knowledge base for Aeyron products.">
-
-      {/* Hero */}
-      <header className="ax-hero">
-        <div className="ax-container">
-          <p className="ax-eyebrow">Aeyron Technology · Support &amp; Documentation</p>
-          <h1 className="ax-hero-title">How can we help you?</h1>
-          <p className="ax-hero-sub">
-            Find guides, manuals, API references, and support resources
-            for all Aeyron products.
-          </p>
-          <div className="ax-hero-actions">
-            <Link className="ax-btn ax-btn-primary" to="/docs/getting-started/intro">Get started</Link>
-            <Link className="ax-btn ax-btn-ghost" to="/docs/support/faq">Browse FAQ</Link>
+    <Layout
+      title="Aeyron | Technical Writing Portfolio"
+      description="A technical writing portfolio and knowledge base for documentation architecture, docs-as-code, and technical communication learning."
+    >
+      <header className="ax-hero ax-hero-portfolio">
+        <div className="ax-container ax-hero-grid">
+          <div>
+            <p className="ax-eyebrow">Technical writing portfolio and knowledge base</p>
+            <h1 className="ax-hero-title">
+              Designing documentation systems for complex products and growing teams.
+            </h1>
+            <p className="ax-hero-sub">
+              I am Aeyron, a technical communication learner building a public portfolio around
+              documentation architecture, API documentation, docs-as-code, Docusaurus, DITA,
+              Markdown, and AI-assisted knowledge work.
+            </p>
+            <div className="ax-hero-actions">
+              <Link className="ax-btn ax-btn-primary" to="/docs/portfolio/intro">
+                View portfolio
+              </Link>
+              <Link className="ax-btn ax-btn-ghost" to="/docs/learning-roadmap/overview">
+                Read roadmap
+              </Link>
+            </div>
+          </div>
+          <div className="ax-signal-panel" aria-label="Portfolio focus areas">
+            <div className="ax-signal-row">
+              <span>Target roles</span>
+              <strong>Technical Writer · IA · Docs Engineer · UX Writer</strong>
+            </div>
+            <div className="ax-signal-row">
+              <span>Core stack</span>
+              <strong>DITA · Markdown · Oxygen XML · HTML · CSS · Docusaurus</strong>
+            </div>
+            <div className="ax-signal-row">
+              <span>Current focus</span>
+              <strong>API docs · CI/CD · Git · Docs-as-code · AI</strong>
+            </div>
           </div>
         </div>
       </header>
 
       <main>
-
-        {/* Products */}
         <section className="ax-section">
           <div className="ax-container">
-            <h2 className="ax-section-title">Products</h2>
-            <div className="ax-product-grid">
-              {PRODUCTS.map(p => (
-                <div key={p.id} className="ax-product-card">
-                  <div className="ax-product-illustration">
-                    <ProductIllustration type={p.id} />
-                  </div>
-                  <div className="ax-product-info">
-                    <span className="ax-product-line">{p.line}</span>
-                    <h3 className="ax-product-name">{p.name}</h3>
-                    <p className="ax-product-desc">{p.desc}</p>
-                    <div className="ax-model-list">
-                      {p.models.map(m => (
-                        <Link
-                          key={m}
-                          className="ax-model-chip"
-                          to={`/docs/products/${p.id}/${m}/user-manual`}
-                        >{m}</Link>
-                      ))}
-                    </div>
-                    <Link className="ax-product-link" to={p.href}>
-                      View all documentation →
-                    </Link>
-                  </div>
-                </div>
-              ))}
+            <div className="ax-section-heading">
+              <p className="ax-section-kicker">What this site proves</p>
+              <h2 className="ax-section-title-large">
+                A portfolio should show the system, not only the pages.
+              </h2>
             </div>
-          </div>
-        </section>
-
-        {/* Topics */}
-        <section className="ax-section ax-section-alt">
-          <div className="ax-container">
-            <h2 className="ax-section-title">Documentation</h2>
-            <div className="ax-topic-grid">
-              {TOPICS.map(t => (
-                <Link key={t.label} className="ax-topic-card" to={t.href}>
-                  <span className="ax-topic-title">{t.label}</span>
-                  <span className="ax-topic-desc">{t.desc}</span>
-                  <span className="ax-topic-arrow">→</span>
+            <div className="ax-strength-grid">
+              {strengths.map((item) => (
+                <Link className="ax-strength-card" to={item.href} key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <span>Explore</span>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
+        <section className="ax-section ax-section-alt">
+          <div className="ax-container">
+            <div className="ax-section-heading">
+              <p className="ax-section-kicker">Site map</p>
+              <h2 className="ax-section-title-large">Three layers: portfolio, knowledge, roadmap.</h2>
+            </div>
+            <div className="ax-highlight-grid">
+              {highlights.map((item) => (
+                <Link className="ax-highlight-card" to={item.href} key={item.title}>
+                  <span>{item.label}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="ax-section">
+          <div className="ax-container ax-career-band">
+            <div>
+              <p className="ax-section-kicker">Career intention</p>
+              <h2 className="ax-section-title-large">
+                From documentation maker to documentation strategist.
+              </h2>
+            </div>
+            <p>
+              This site is designed for job search and long-term growth: to show hiring teams
+              how I structure information, learn new technologies, write clearly, and think about
+              the future of technical communication with AI.
+            </p>
+          </div>
+        </section>
       </main>
     </Layout>
   );

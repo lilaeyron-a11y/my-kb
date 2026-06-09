@@ -18,3 +18,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local Codex/npm cache
+.npm-cache/
+serve.out.log
+serve.err.log
